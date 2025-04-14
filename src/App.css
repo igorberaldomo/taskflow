@@ -1,0 +1,280 @@
+#root {
+    margin: 0px;
+    padding: 0px;
+}
+.App-header {
+    background-color: #81a9fa;
+    margin: 0px;
+    height: 60px;
+    width: 100%;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items:baseline;
+    justify-content: space-between;
+    font-size: 15px;
+}
+.logged-button{
+    background-color: #f8f8f8;
+    border: none;
+    color: #81a9fa;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+.App{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content:space-evenly;
+    margin-left: 100px;
+    width: 1600px;
+    height: 1000px;
+    background-color: #f6f6f6;
+}
+.created-task, .assigned-task, .done-task{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+    width: 500px;
+    height: 1000px;
+    background-color: #e4e4e4;
+}
+
+
+.created-task-title{
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+} 
+.assigned-task-title{
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+}
+.done-task-title{
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+}
+.App-login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 1000px;
+    width: 1900px;
+    background-color: #f6f6f6;
+}
+.login{
+    height: 300px;
+    width: 600px;
+    background-color: #e4e4e4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    height: 100px;
+    width: 500px;
+}
+.login-username{
+    margin-left: 35px;
+    height: 30px;
+    width: 300px;
+}
+.login-password{
+    margin-left: 5px;
+    height: 30px;
+    width: 300px;
+}
+.login-buttonbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+}
+.login-button{
+    margin: 10px
+}
+.app-register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 1000px;
+    width: 1900px;
+    background-color: #f6f6f6;
+}
+.register{
+    height: 300px;
+    width: 600px;
+    background-color: #7cf57c;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.register-form{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    height: 100px;
+    width: 500px;
+}
+.register-username{
+    margin-left: 35px;
+    height: 30px;
+    width: 300px;
+}
+.register-password{
+    margin-left: 5px;
+    height: 30px;
+    width: 300px;
+}
+.register-buttonbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+}
+.register-button{
+    margin: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.app-createTask{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 1000px;
+    width: 1900px;
+    background-color: #f6f6f6;
+}
+.createTask{
+    height: 300px;
+    width: 600px;
+    background-color: #7cf57c;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.createTask-form{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    width: 500px;
+}
+.createTask-name{
+    margin-bottom: 10px;
+    margin-left: 15px;
+    height: 30px;
+    width: 300px;
+}
+.createTask-userID{
+    margin-bottom: 10px;
+    margin-left: 5px;
+    height: 30px;
+    width: 300px;
+}
+.createTask-username{
+    margin-left: 5px;
+    height: 30px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+.createTask-done{
+    margin-left: 70px;
+    height: 30px;
+    width: 120px;
+}
+
+.createTask-ajustablebox{
+    margin-right: 180px;
+}
+
+.createTask-buttonbox{
+    margin-top: 20px;
+    height: 50px;
+    width: 550px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.create-button{
+    height: 40px;
+    width: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #2a6e2a;
+    border-radius: 15px;
+    color: white;
+}
+
+.return-button{
+    height: 40px;
+    width: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #e72a2a;
+    border-radius: 15px;
+    color: white;
+}

@@ -157,6 +157,33 @@ app.put('/:id', (req, res) => {
 
 })
 
+app.put('/:id/tasks', (req, res) => {
+    // muda o done da task
+    const { id } = req.params
+    const { name, userID, username, done } = req.query
+    const userProfile = getUserById(id)
+
+    if (!userProfile) {
+        
+        return res.status(404).send('Profile not found')
+    }
+
+    if (!name && !userID && !username && !done) {
+        return res.status(400).send('Name is required')
+    }
+    db.serialize(() => {
+        const attributes = []
+        name && attributes.push(`name = '${name}'`)
+        userID && attributes.push(`userID = '${userID}'`)
+        username && attributes.push(`username = '${username}'`)
+        done && attributes.push(`done = '${done}'`)
+        db.run(`UPDATE tasks SET ${attributes.join(', ')} WHERE taskId = ${id}`)
+        db.all("SELECT * FROM tasks WHERE taskId = ?", [id], (err, row) => {
+            res.send(row);
+        })
+    })
+});
+
 app.delete('/:id', (req, res) => {
     // remover uma stack
     const { id } = req.params
