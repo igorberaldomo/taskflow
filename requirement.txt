@@ -1,0 +1,50 @@
+O que fazer?
+
+Criar uma aplicação web completa para gerenciamento de tarefas, onde os usuários possam adicionar, editar, excluir e marcar tarefas como concluídas. 
+
+📌 Funcionalidade;
+
+1. CRUD de Tarefas
+
+- Criar, ler, atualizar e deletar tarefas
+- Marcar tarefas como concluídas
+- Filtrar tarefas por status (pendente/concluída)
+
+2. Banco de Dados
+
+- Armazenamento das tarefas e usuários em um banco de dados 
+
+3. API REST
+
+- Backend em Node.js com Express.js
+- Rotas protegidas para operações CRUD
+
+4. Frontend Interativo
+
+- Interface em React com estilização usando CSS/Styled Components/Tailwind/bootstrap
+- Consumo da API para listar e gerenciar tarefas
+
+5. Dockerização
+
+Containers para o backend, frontend e banco de dados
+- Docker Compose para facilitar a execução
+📌 Tecnologias que podem ser utilizadas:
+
+- Frontend: React, JavaScript, CSS (Tailwind , Styled Components, bootstrap)
+- Backend: Node.js, Express.js
+- Banco de Dados: PostgreSQL
+- Autenticação: JWT, bcrypt
+- APIs: RESTful
+- Infraestrutura: Docker, Docker Compose
+
+📌 Extras Opcionais -
+Caso queira aperfeiçoar ainda mais o seu projeto.
+- Notificações em tempo real com WebSockets
+- Deploy na Vercel (Frontend) e Render (Backend)
+- Testes automatizados com Jest
+
+O que entregar na plataforma?
+
+- Link do GitHub
+- Documentação do projeto (README explicando setup e funcionalidades)
+- Demonstração funcional (via vídeo ou deploy)
