@@ -1,15 +1,9 @@
 import React from 'react'
 import './App.css'
-import { useState } from 'react'
-import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import login from './pages/login/login'
-import register from './pages/register/register'
-import display from './pages/display/display'
-
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000'
-})
+import login from './pages/login/login.js'
+import register from './pages/register/register.js'
+import display from './pages/display/display.js'
 
 function App() {
   <Router>

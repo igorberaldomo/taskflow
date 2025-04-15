@@ -1,5 +1,7 @@
 import React from "react";
 import './createTask.css'
+import { useState, useEffect } from "react";
+
 
 export default function CreateTask() {
     const [taskName, setTaskName] = useState("")
@@ -7,15 +9,34 @@ export default function CreateTask() {
     const [username, setUsername] = useState("")
 
     const handleUsernameChange = (event) => {
-        setUsername(event.target.value);  
-      }
-      const handleTaskNameChange = (event) => {
-        setTaskName(event.target.value);  
-      }
-      const handleDoneChange = (event) => {
+        setUsername(event.target.value);
+    }
+    const handleTaskNameChange = (event) => {
+        setTaskName(event.target.value);
+    }
+    const handleDoneChange = (event) => {
         setDone(event.target.value);
+    }
+
+    const createNewTask = async () => {
+        const task = {
+            name: taskName,
+            done: done,
+            username: username
+        }
+        const response = await fetch('http://localhost:3000/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(task),
+        });
+        const data = await response.json();
+        console.log(data);
+    }
+    const openCreateTask = () => {
+        setOpen(!open)
       }
-    
     return (
         <div className='app-createTask'>
             <div className='createTask'>
@@ -37,8 +58,8 @@ export default function CreateTask() {
                     </label>
                 </div>
                 <div className='createTask-buttonbox'>
-                    <button className='create-button' >Create</button>
-                    <button className='return-button'  >Return</button>
+                    <button className='create-button' onClick={createNewTask}> Create</button>
+                    <button className='return-button' onClick={openCreateTask}> Cancel</button>
                 </div>
 
             </div>

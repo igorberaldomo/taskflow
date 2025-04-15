@@ -1,5 +1,5 @@
 import React from "react";
-import 'login.css'
+import './login.css'
 
 export default function Login() {
     const [username, setUsername] = useState("")
@@ -10,6 +10,22 @@ export default function Login() {
     
       const handlePasswordChange = (event) => {
         setPassword(event.target.value);  
+      }
+
+      const login = async () => {
+        const user = {
+          username: username,
+          password: password
+        }
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        });
+        const data = await response.json();
+        console.log(data);
       }
     return (
         <div className='App-login'>
@@ -24,8 +40,8 @@ export default function Login() {
           </label>
           </div>
           <div className='login-buttonbox'>
-          <button className='login-button' onClick={() => changePage("loged")}>Login</button>
-          <button className='login-button' onClick={() => changePage("register")} >Register</button>
+          <button className='login-button' onClick={login} >Login</button>
+          <link className='login-button' ref={"/register"}>register</link>
           </div>
         </div>
       </div>

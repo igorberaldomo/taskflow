@@ -55,7 +55,7 @@ app.use(cors({
 }))
 
 // envia no root
-app.get('/', (req, res) => {
+app.get('/tasks', (req, res) => {
     // retorna todas as tasks
     db.serialize(() => {
         db.all("SELECT * FROM tasks", (err, rows) => {
@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/:id', (req, res) => {
+app.get('/users/:id', (req, res) => {
     // retorna o perfil
     const { id } = req.params.id
 
@@ -90,12 +90,15 @@ app.get('/:id/tasks', (req, res) => {
 });
 
 
-app.post('/', (req, res) => {
+app.post('/register', (req, res) => {
     // cria um novo usuário
     const { name, password } = req.body
 
     if (!name) {
         return res.status(400).send('Name is required')
+    }
+    if (!password) {
+        return res.status(400).send('Password is required')
     }
 
     db.serialize(() => {
@@ -106,7 +109,7 @@ app.post('/', (req, res) => {
     })
 });
 
-app.post('/:id', (req, res) => {
+app.post('/tasks', (req, res) => {
     // cria uma nova task
     const { name, userID, username, done } = req.body
 
@@ -158,7 +161,7 @@ app.put('/:id', (req, res) => {
 })
 
 app.put('/:id/tasks', (req, res) => {
-    // muda o done da task
+    // muda o status da task
     const { id } = req.params
     const { name, userID, username, done } = req.query
     const userProfile = getUserById(id)
