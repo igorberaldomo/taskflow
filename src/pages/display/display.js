@@ -37,15 +37,33 @@ export default function Display() {
       <div className="App">
         <div className='created-task' >
           <div className='created-task-title'>CREATED</div>
-          <div className='created-task-list'></div>
+          <div className='created-task-list'>
+            {tasks.map((task) => {
+              if (task.done === "created") {
+                return <div className='task-item'>{task.name}</div>
+              }
+            })}
+          </div>
         </div>
         <div className='assigned-task'>
           <div className='assigned-task-title'>ASSIGNED</div>
-          <div className='assigned-task-list'></div>
+          <div className='assigned-task-list'>
+            {tasks.map((task) => {
+              if (task.done === "assigned") {
+                return <div className='task-item'>{task.name}</div>
+              }
+            })}
+          </div>
         </div>
         <div className='done-task'>
           <div className='done-task-title'>DONE</div>
-          <div className='done-task-list'></div>
+          <div className='done-task-list'>
+            {tasks.map((task) => {
+              if (task.done === "done") {
+                return <div className='task-item'>{task.name}</div>
+              }
+            })}
+          </div>
         </div>
       </div>
     </div>
