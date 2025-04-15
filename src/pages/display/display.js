@@ -29,9 +29,9 @@ export default function Display() {
     <div>
       <header className="App-header">
         <button className='newTask-button' onClick={openCreateTask}>New task</button>
-        if (open) {
+        {{if (open) {
           <CreateTask />
-        }
+        }}}
         <link href='/'className='logout-button' onClick={logout} >Logout</link>
       </header>
       <div className="App">
