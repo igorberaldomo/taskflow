@@ -8,7 +8,7 @@ const db = new sqlite3.Database('./database.db')
 
 db.serialize(() => {
     db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, password TEXT NOT NULL)')
-    db.run('CREATE TABLE IF NOT EXISTS tasks (taskId INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, userID INTEGER, username TEXT NOT NULL, done TEXT NOT NULL')
+    db.run('CREATE TABLE IF NOT EXISTS tasks (taskId INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, userID INTEGER, username TEXT NOT NULL, done TEXT NOT NULL)')
 })
 const utils = {
     replaceOnListByIndex: (list, index, newdata) => {

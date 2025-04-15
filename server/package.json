@@ -4,7 +4,8 @@
   "description": "a backend api for stackx project",
   "main": "server.js",
   "scripts": {
-    "test": "run"
+    "test": "run",
+    "server": "node server.js"
   },
   "author": "",
   "license": "ISC",
