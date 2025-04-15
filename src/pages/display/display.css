@@ -1,0 +1,96 @@
+
+.App-header {
+    background-color: #81a9fa;
+    margin: 0px;
+    height: 60px;
+    width: 100%;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items:baseline;
+    justify-content: space-between;
+    font-size: 15px;
+}
+.newTask-button{
+    background-color: #f8f8f8;
+    border: none;
+    color: #81a9fa;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+.logout-button{
+    background-color: #9c9c9c;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+.App{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content:space-evenly;
+    margin-left: 100px;
+    width: 1600px;
+    height: 1000px;
+
+}
+.created-task, .assigned-task, .done-task{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+    width: 500px;
+    height: 1000px;
+    background-color: #e4e4e4;
+}
+
+
+.created-task-title{
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+} 
+.assigned-task-title{
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+}
+.done-task-title{
+    margin-top: 10px;
+    height: 50px;
+    width: 400px;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+}

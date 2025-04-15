@@ -1,0 +1,91 @@
+
+.app-createTask{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 1000px;
+    width: 1900px;
+    background-color: #f6f6f6;
+}
+.createTask{
+    height: 300px;
+    width: 600px;
+    background-color: #7cf57c;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.createTask-form{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    width: 500px;
+}
+.createTask-name{
+    margin-bottom: 10px;
+    margin-left: 15px;
+    height: 30px;
+    width: 300px;
+}
+.createTask-userID{
+    margin-bottom: 10px;
+    margin-left: 5px;
+    height: 30px;
+    width: 300px;
+}
+.createTask-username{
+    margin-left: 5px;
+    height: 30px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+.createTask-done{
+    margin-left: 70px;
+    height: 30px;
+    width: 120px;
+}
+
+.createTask-ajustablebox{
+    margin-right: 180px;
+}
+
+.createTask-buttonbox{
+    margin-top: 20px;
+    height: 50px;
+    width: 550px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.create-button{
+    height: 40px;
+    width: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #2a6e2a;
+    border-radius: 15px;
+    color: white;
+}
+
+.return-button{
+    height: 40px;
+    width: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #e72a2a;
+    border-radius: 15px;
+    color: white;
+}
