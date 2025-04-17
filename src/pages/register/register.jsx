@@ -1,9 +1,11 @@
 import React from "react";
 import './register.css'
+import { useState, useEffect } from "react";
 
 export default function Register() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   }
@@ -13,7 +15,7 @@ export default function Register() {
   }
   const register = async () => {
     const user = {
-      username: username,
+      name: username,
       password: password
     }
     const response = await fetch('http://localhost:3000/register', {
@@ -24,7 +26,13 @@ export default function Register() {
       body: JSON.stringify(user),
     });
     const data = await response.json();
-    console.log(data);
+
+    if (data.name && data.password) {
+      navigate('/display')
+    }
+    else{
+      setError(data.err)
+    }
   }
 
   return (
@@ -40,9 +48,12 @@ export default function Register() {
           </label>
         </div>
         <div className='register-buttonbox'>
-          <button className='register-button' >Register</button>
+          <button className='register-button' onClick={register}>Register</button>
         </div>
-        <link href="/" className='return-button' > Return</link>
+        <a href="/">
+          <button className='return-button'>Return</button>
+        </a>
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

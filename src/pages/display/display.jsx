@@ -32,7 +32,9 @@ export default function Display() {
         {{if (open) {
           <CreateTask />
         }}}
-        <link href='/'className='logout-button' onClick={logout} >Logout</link>
+        <a href="/">
+        <button className='logout-button' onClick={logout}>Logout</button>
+        </a>
       </header>
       <div className="App">
         <div className='created-task' >

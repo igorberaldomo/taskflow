@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -6,22 +7,19 @@ const sqlite3 = require('sqlite3').verbose()
 
 const db = new sqlite3.Database('./database.db')
 
+
+app.use(bodyParser.json());
+
+
 db.serialize(() => {
-    db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, password TEXT NOT NULL)')
+    db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL , password TEXT NOT NULL)')
     db.run('CREATE TABLE IF NOT EXISTS tasks (taskId INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, userID INTEGER, username TEXT NOT NULL, done TEXT NOT NULL)')
 })
-const utils = {
-    replaceOnListByIndex: (list, index, newdata) => {
-        const listCopy = [...list]
-        listCopy[index] = newdata
-        return listCopy
-    }
 
-}
 let userProfile = {
-    id : undefined,
-   name: undefined,
-   password: undefined
+    id: undefined,
+    name: undefined,
+    password: undefined
 }
 let userTasks = {
     taskId: undefined,
@@ -51,7 +49,7 @@ async function getUserTasks(userId) {
     })
 }
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: 'http://localhost:5173',
 }))
 
 // envia no root
@@ -65,20 +63,7 @@ app.get('/tasks', (req, res) => {
 });
 
 
-app.get('/users/:id', (req, res) => {
-    // retorna o perfil
-    const { id } = req.params.id
-
-
-    const userProfile = getUserById(id);
-    if (!userProfile) {
-        return res.status(404).send('Profile not found')
-    }
-    res.status(200)
-    res.send(userProfile);
-});
-
-app.get('/:id/tasks', (req, res) => {
+app.get('/tasks', (req, res) => {
     // retorna as tasks
     const { id } = req.params.id
     const userTasks = getUserTasks(id);
@@ -89,25 +74,63 @@ app.get('/:id/tasks', (req, res) => {
     res.send(userTasks);
 });
 
-
-app.post('/register', (req, res) => {
-    // cria um novo usuário
-    const { name, password } = req.body
+app.post('/login', (req, res) => {
+    const { name, password } = req.body;
 
     if (!name) {
-        return res.status(400).send('Name is required')
+        err = JSON.stringify({ err: 'name is required' })
+        return res.status(400).send(err)
     }
     if (!password) {
-        return res.status(400).send('Password is required')
-    }
-
+        err = JSON.stringify({ err: 'password is required' })
+        return res.status(400).send(err)
+    };
+    // acessa o usuario e confere o password
     db.serialize(() => {
-        db.run(`INSERT INTO users (name, age) VALUES ('${name}', ${age ? `${age}` : "NULL"})`)
-        db.all("SELECT * FROM users ORDER BY id DESC limit 1", (err, row) => {
-            res.send(row);
+        db.all("SELECT * FROM users WHERE name = ? AND password = ?", [name, password], (err, row) => {
+            res.status(200).send(row);
         })
     })
+
 });
+app.post('/register', (req, res) => {
+    // cria um novo usuário
+    const exists = false
+    const { name, password } = req.body
+    if (!name) {
+        err = JSON.stringify({ err: 'name is required' })
+        return res.status(400).send(err)
+    }
+    if (!password) {
+        err = JSON.stringify({
+            err: 'password is required'
+        })
+        return res.status(400).send(err)
+    }
+
+    try{
+    db.serialize(() => {
+        db.run("SELECT * FROM users WHERE name = ?", [name], (err, row) => {
+            if (row != undefined) {
+                console.log(row)
+                exists = true
+            }
+        })
+    })
+    }
+    catch(err){
+    
+
+        db.serialize(()=>{
+            db.run(`INSERT INTO users (name, password) VALUES (?, ?)`, [name, password])
+
+            db.all("SELECT * FROM users ORDER BY id DESC limit 1", (err, row) => {
+                return res.status(200).send(row);
+            })
+        })
+    }
+}
+);
 
 app.post('/tasks', (req, res) => {
     // cria uma nova task
@@ -135,7 +158,7 @@ app.post('/tasks', (req, res) => {
 });
 
 
-app.put('/:id', (req, res) => {
+app.put('/register', (req, res) => {
     // muda a senha do perfil
     const { id } = req.params
     const { name, password, newPassword } = req.query
@@ -147,7 +170,7 @@ app.put('/:id', (req, res) => {
 
     if (!name && !password && !newPassword) {
         return res.status(400).send('Name or age is required')
-    } 
+    }
     db.serialize(() => {
         const attributes = []
         name && attributes.push(`name = '${name}'`)
@@ -160,14 +183,13 @@ app.put('/:id', (req, res) => {
 
 })
 
-app.put('/:id/tasks', (req, res) => {
+app.put('/tasks', (req, res) => {
     // muda o status da task
-    const { id } = req.params
-    const { name, userID, username, done } = req.query
+    const { name, userID, username, done, id } = req.query
     const userProfile = getUserById(id)
 
     if (!userProfile) {
-        
+
         return res.status(404).send('Profile not found')
     }
 
@@ -190,7 +212,7 @@ app.put('/:id/tasks', (req, res) => {
 app.delete('/:id', (req, res) => {
     // remover uma stack
     const { id } = req.params
-    const userProfile =  getUserById(id)
+    const userProfile = getUserById(id)
     if (!userProfile) {
         return res.status(404).send('Profile not found')
     }
