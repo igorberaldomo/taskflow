@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 export default function Login() {
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+
 
   const navigate = useNavigate();
 
@@ -34,9 +36,10 @@ export default function Login() {
       body: JSON.stringify(user),
     });
     const data = await response.json();
-    console.log(data)
     if (data.message) {
+      Storage.setItem('token', data.token)
       navigate('/display')
+      //{ replace: true , state:{token: data.token}}
     }
     else {
       setError(data.err)
@@ -44,6 +47,7 @@ export default function Login() {
   }
 
   return (
+
     <div className='App-login'>
       <div className='login'>
         <h2> Login page</h2>

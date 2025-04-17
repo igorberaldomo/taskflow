@@ -7,11 +7,7 @@ export default function Display() {
   const [open, setOpen] = useState(false)
   const [taskName, setTaskName] = useState("")
   const [done, setDone] = useState("")
-  const [username, setUsername] = useState("")
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  }
   const handleTaskNameChange = (event) => {
     setTaskName(event.target.value);
   }
@@ -21,24 +17,42 @@ export default function Display() {
 
   const createNewTask = async () => {
     const task = {
-      name: taskName,
+      taskname: taskName,
       done: done,
-      username: username
     }
     const response = await fetch('http://localhost:3000/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Storage.getItem('token')}`
       },
       body: JSON.stringify(task),
     });
     const data = await response.json();
     console.log(data);
+    if (data.err === 'Unauthorized') {
+      Storage.removeItem('token')
+      navigate('/')
+    }
+    if (data.err == 'Error creating task') {
+      setError(data.err)
+    }
+    if (data.message){
+      navigate('/display')
+    }
   }
 
   useEffect(() => {
     const fetchAllTasks = async () => {
-      const tasks = await fetch('http://localhost:3000/tasks')
+      const tasks = await fetch('http://localhost:3000/tasks',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Storage.getItem('token')}`
+          }
+        }
+      )
       const tasksJson = await tasks.json()
 
       setTasks(tasksJson)
@@ -56,6 +70,7 @@ export default function Display() {
   }
 
   return (
+    
     <div>
       <header className="App-header">
         <button className='newTask-button' onClick={openCreateTask}>New task</button>
@@ -68,18 +83,10 @@ export default function Display() {
         <table>
           <tr>
             <td>
-              <label htmlFor="createTask-name"> Nome da tarefa:</label>
+              <label htmlFor="createTask-taskname"> Nome da tarefa:</label>
             </td>
             <td>
-              <input type="text" placeholder="Name" className='createTask-name' onChange={handleTaskNameChange} />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label htmlFor="createTask-usename"> Nome do usuario:</label>
-            </td>
-            <td>
-              <input type="text" placeholder="Username" className='createTask-username' onChange={handleUsernameChange} />
+              <input type="text" placeholder="taskName" className='createTask-name' onChange={handleTaskNameChange} />
             </td>
           </tr>
           <tr>
