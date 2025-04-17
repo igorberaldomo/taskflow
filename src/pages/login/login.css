@@ -5,12 +5,12 @@
     justify-content: center;
     height: 1000px;
     width: 1900px;
-    background-color: #f6f6f6;
+    background-color:   white;
 }
 .login{
     height: 300px;
     width: 600px;
-    background-color: #e4e4e4;
+    background-color:   #adc6f8;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,14 +23,16 @@
     justify-content: center;
     height: 100px;
     width: 500px;
+    font-size: 20px;
+    font-weight: 600;
 }
 .login-username{
-    margin-left: 35px;
+
     height: 30px;
     width: 300px;
 }
 .login-password{
-    margin-left: 5px;
+
     height: 30px;
     width: 300px;
 }
@@ -44,4 +46,12 @@
 }
 .login-button{
     margin: 10px
+}
+.error{
+    margin-top: 20px;
+    color: red;
+    position: absolute;
+    font-size: 20px;
+    font-weight: 600;
+    top:650px;
 }

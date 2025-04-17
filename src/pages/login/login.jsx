@@ -35,34 +35,44 @@ export default function Login() {
     });
     const data = await response.json();
     console.log(data)
-    if (data.name && data.password) {
+    if (data.message) {
       navigate('/display')
     }
-    else{
-      setError(data.message)
+    else {
+      setError(data.err)
     }
   }
-  
+
   return (
     <div className='App-login'>
       <div className='login'>
         <h2> Login page</h2>
         <div className='login-form'>
-          <label htmlFor="login-username"> User:
-            <input type="text" placeholder="Username" className='login-username' onChange={handleUsernameChange} />
-          </label>
-          <label htmlFor="login-password"> Password:
-            <input type="password" placeholder="Password" className='login-password' onChange={handlePasswordChange} />
-          </label>
+          <table>
+            <tr>
+              <td><label htmlFor="login-username"> User:</label></td>
+              <td>            
+                <input type="text" placeholder="Username" className='login-username' onChange={handleUsernameChange} />
+                </td>
+            </tr>
+            <tr>
+              <td> 
+              <label htmlFor="login-password"> Password:</label>
+              </td>
+              <td>
+              <input type="password" placeholder="Password" className='login-password' onChange={handlePasswordChange} />
+              </td>
+            </tr>
+          </table>
         </div>
         <div className='login-buttonbox'>
-
           <button className='login-button' onClick={login} >Login</button>
-
           <a href="/register">
             <button className='login-button'>Register</button>
           </a>
-          {error && <p>{error}</p>}
+        </div>
+        <div className="error">
+        {error && <p >error: {error}</p>}
         </div>
       </div>
     </div>

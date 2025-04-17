@@ -11,12 +11,24 @@
 .register{
     height: 300px;
     width: 600px;
-    background-color: #7cf57c;
+    background-color:   #3a7cff;
     border-radius: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.title{
+    height: 50px;
+    width: 400px;
+    margin-top: -20px;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
 }
 .register-form{
     display: flex;
@@ -27,21 +39,21 @@
     width: 500px;
 }
 .register-username{
-    margin-left: 35px;
     height: 30px;
     width: 300px;
 }
 .register-password{
-    margin-left: 5px;
     height: 30px;
     width: 300px;
 }
 .register-buttonbox{
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content:   space-between;
     height: 50px;
+    width: 500px;
 
 }
 .register-button{
@@ -64,7 +76,14 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    background-color: #e72a2a;
+    background-color: white;
     border-radius: 15px;
-    color: white;
+    color: red;
+}
+.error{
+    color: red;
+    position: absolute;
+    font-size: 20px;
+    font-weight: 600;
+    top:575px;
 }

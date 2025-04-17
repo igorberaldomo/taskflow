@@ -44,6 +44,7 @@ export default function CreateTask() {
                 <label htmlFor="createTask-name"> Nome da tarefa:
                     <input type="text" placeholder="Name" className='createTask-name' onChange={handleTaskNameChange} />
                 </label>
+                <br />
                 <label htmlFor="createTask-usename"> Nome do usuario:
                     <input type="text" placeholder="Username" className='createTask-username' onChange={handleUsernameChange} />
                 </label>

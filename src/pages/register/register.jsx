@@ -38,22 +38,38 @@ export default function Register() {
   return (
     <div className='app-register'>
       <div className='register'>
-        <h2>Formulário de registro</h2>
+        <h2 className="title">Formulário de registro</h2>
         <div className='register-form'>
-          <label htmlFor="register-username"> User:
-            <input type="text" placeholder="Username" className='register-username' onChange={handleUsernameChange} />
-          </label>
-          <label htmlFor="register-password"> Password:
-            <input type="password" placeholder="Password" className='register-password' onChange={handlePasswordChange} />
-          </label>
+          <table>
+            <tr>
+              <td>
+              <label htmlFor="register-username"> User:</label>
+              </td>
+              <td>
+              <input type="text" placeholder="Username" className='register-username' onChange={handleUsernameChange} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+              <label htmlFor="register-password"> Password:</label>
+              </td>
+              <td>
+              <input type="password" placeholder="Password" className='register-password' onChange={handlePasswordChange} />
+              </td>
+            </tr>
+          </table>
         </div>
+
         <div className='register-buttonbox'>
           <button className='register-button' onClick={register}>Register</button>
-        </div>
+
         <a href="/">
           <button className='return-button'>Return</button>
         </a>
-        {error && <p>{error}</p>}
+        </div>
+        <div className="error">
+        {error && <p >error: {error}</p>}
+        </div>
       </div>
     </div>
   );
