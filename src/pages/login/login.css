@@ -1,3 +1,4 @@
+
 .App-login{
     display: flex;
     flex-direction: column;
@@ -5,16 +6,29 @@
     justify-content: center;
     height: 1000px;
     width: 1900px;
-    background-color:   white;
+    background-color: #f6f6f6;
 }
 .login{
     height: 300px;
     width: 600px;
-    background-color:   #adc6f8;
+    background-color:   #3a7cff;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.title{
+    height: 50px;
+    width: 400px;
+    margin-top: -20px;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
 }
 .login-form{
     display: flex;
@@ -23,29 +37,50 @@
     justify-content: center;
     height: 100px;
     width: 500px;
-    font-size: 20px;
-    font-weight: 600;
 }
 .login-username{
-
     height: 30px;
     width: 300px;
 }
 .login-password{
-
     height: 30px;
     width: 300px;
 }
 .login-buttonbox{
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content:   space-between;
     height: 50px;
+    width: 500px;
 
 }
+
+.register-button{
+    height: 40px;
+    width: 100px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 15px;
+    color: blue;
+}
 .login-button{
-    margin: 10px
+    margin: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 15px;
+
 }
 .error{
     margin-top: 20px;

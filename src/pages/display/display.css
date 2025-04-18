@@ -1,4 +1,3 @@
-
 .App-header {
     background-color: #81a9fa;
     margin: 0px;
@@ -7,11 +6,12 @@
     padding-left: 10px;
     display: flex;
     flex-direction: row;
-    align-items:baseline;
+    align-items: baseline;
     justify-content: space-between;
     font-size: 15px;
 }
-.newTask-button{
+
+.newTask-button {
     background-color: #f8f8f8;
     border: none;
     color: #81a9fa;
@@ -24,7 +24,8 @@
     cursor: pointer;
     border-radius: 15px;
 }
-.logout-button{
+
+.logout-button {
     background-color: #9c9c9c;
     border: none;
     color: white;
@@ -37,17 +38,21 @@
     cursor: pointer;
     border-radius: 15px;
 }
-.App{
+
+.App {
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     margin-left: 100px;
     width: 1600px;
     height: 1000px;
 
 }
-.created-task, .assigned-task, .done-task{
+
+.created-task,
+.assigned-task,
+.done-task {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,8 +62,13 @@
     background-color: #e4e4e4;
 }
 
+.description{
+    padding-left: 5px;
+    margin-top: -20px;
+    height: 50px;
 
-.created-task-title{
+}
+.created-task-title {
     margin-top: 10px;
     height: 50px;
     width: 400px;
@@ -69,8 +79,9 @@
     justify-content: center;
     font-size: large;
     font-weight: 600;
-} 
-.assigned-task-title{
+}
+
+.assigned-task-title {
     margin-top: 10px;
     height: 50px;
     width: 400px;
@@ -82,7 +93,8 @@
     font-size: large;
     font-weight: 600;
 }
-.done-task-title{
+
+.done-task-title {
     margin-top: 10px;
     height: 50px;
     width: 400px;
@@ -94,7 +106,8 @@
     font-size: large;
     font-weight: 600;
 }
-.logout-button{
+
+.logout-button {
     background-color: red;
     border: none;
     color: white;
@@ -107,11 +120,11 @@
     cursor: pointer;
 }
 
-.Createtask{
+.Createtask {
     height: 220px;
     width: 500px;
     position: absolute;
-    background-color:  #adc6f8;
+    background-color: #adc6f8;
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -119,28 +132,84 @@
     padding: 10px;
 
 }
-.createTask-name, .createTask-username{
-    margin-left: 10px;
+
+.task-box {
+    width: 400px;
+    height: 100px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(243, 166, 65);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+
+} 
+.task-name {
+    margin-top: 0px;
+    height: 25px;
+    padding: 5px;
+    width: 200px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 5px;
 }
 
-.createTask-buttonbox{
+.newTask-done {
+    height: 40px;
+    width: 120px;
+    background-color: lightgray;
+    border: none;
+    color: black;
+}
+.delete-button:hover{
+    border: black;
+    box-shadow: 1px 1px 0px .5px black;
+}
+.title-td{
+    width: 320px;
+}
+.delete-button {
+    margin: 0px;
+    padding: 0px;
+    height: 30px;
+    width: 40px;
+    background-color: lightgray;
+    border-radius: 5px;
+    border: none;
+    color: red;
+
+}
+.limited-width{
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.createTask-buttonbox {
     width: 450px;
     height: 50px;
     margin: 20px;
     padding: 0px;
+    border-radius: 15px;
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
     align-content: center;
     justify-content: space-between;
 }
-.create-button{
+
+.create-button {
     height: 30px;
     width: 70px;
     border-radius: 5px;
     background-color: lightgray;
 }
-.cancel-button{
+
+.cancel-button {
     height: 30px;
     width: 70px;
 

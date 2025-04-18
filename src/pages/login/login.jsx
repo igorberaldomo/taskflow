@@ -28,7 +28,7 @@ export default function Login() {
       name: username,
       password: password
     }
-    const response = await fetch('http://localhost:3000/login', {
+    const response = await fetch('http://taskserver:3000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,8 @@ export default function Login() {
     });
     const data = await response.json();
     if (data.message) {
-      Storage.setItem('token', data.token)
+
+      localStorage.setItem('token', data.token)
       navigate('/display')
       //{ replace: true , state:{token: data.token}}
     }
@@ -50,33 +51,36 @@ export default function Login() {
 
     <div className='App-login'>
       <div className='login'>
-        <h2> Login page</h2>
+        <h2 className='title'> Login page</h2>
         <div className='login-form'>
           <table>
-            <tr>
-              <td><label htmlFor="login-username"> User:</label></td>
-              <td>            
-                <input type="text" placeholder="Username" className='login-username' onChange={handleUsernameChange} />
+            <tbody>
+              <tr>
+                <td><label htmlFor="login-username"> User:</label></td>
+                <td>
+                  <input type="text" placeholder="Username" className='login-username' onChange={handleUsernameChange} />
                 </td>
-            </tr>
-            <tr>
-              <td> 
-              <label htmlFor="login-password"> Password:</label>
-              </td>
-              <td>
-              <input type="password" placeholder="Password" className='login-password' onChange={handlePasswordChange} />
-              </td>
-            </tr>
+              </tr>
+              <tr>
+                <td>
+                  <label htmlFor="login-password"> Password:</label>
+                </td>
+                <td>
+                  <input type="password" placeholder="Password" className='login-password' onChange={handlePasswordChange} />
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div className='login-buttonbox'>
-          <button className='login-button' onClick={login} >Login</button>
           <a href="/register">
-            <button className='login-button'>Register</button>
+            <button className='register-button'>Register</button>
           </a>
+          <button className='login-button' onClick={login} >Login</button>
+
         </div>
         <div className="error">
-        {error && <p >error: {error}</p>}
+          {error && <p >error: {error}</p>}
         </div>
       </div>
     </div>

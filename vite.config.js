@@ -6,5 +6,9 @@ export default defineConfig({
   plugins: [react()],
   esbuild: {
     loader: "jsx",
-  }
+  },
+  server: {
+    host: true,
+    port: 5173
+}
 })

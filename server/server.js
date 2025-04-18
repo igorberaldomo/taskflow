@@ -10,12 +10,22 @@ app.use(express.json());
 require("dotenv-safe").config({ example: "./.env" });
 
 db.serialize(() => {
-    db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL , password TEXT NOT NULL)')
-    db.run('CREATE TABLE IF NOT EXISTS tasks (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskname TEXT NOT NULL, userID INTEGER, username TEXT NOT NULL, done TEXT NOT NULL)')
+    db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE, password TEXT NOT NULL)')
+    db.run('CREATE TABLE IF NOT EXISTS tasks (taskID INTEGER PRIMARY KEY AUTOINCREMENT, taskname TEXT NOT NULL, description TEXT NOT NULL, userID INTEGER, username TEXT NOT NULL, done TEXT NOT NULL)')
 })
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+        if (!origin || origin.startsWith('http://172.18.0.')
+            || origin.startsWith('http://127.0.0.1')
+            || origin.startsWith('http://localhost')    
+            || origin.startsWith('http://taskflow')
+    ) {
+            return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'));
+    },
+    // origin: ['http://localhost:5173', 'http://taskflow:5173'],
 }))
 
 
@@ -41,7 +51,7 @@ app.post('/login', (req, res) => {
             res.status(500).send(err);
         } else if (row) {
             const token = jwt.sign(
-                { userId: row.id, username: row.name },
+                { userID: row.id, username: row.name },
                 process.env.JWT_SECRET || "secret",
                 { expiresIn: "1h" },
             );
@@ -57,7 +67,7 @@ app.post('/login', (req, res) => {
 });
 app.post('/register', (req, res) => {
     // cria um novo usuário
-    const { name, password } = req.body
+    const { name, password,  } = req.body
     if (!name) {
         err = JSON.stringify({ err: 'name is required' })
         return res.status(400).send(err)
@@ -138,7 +148,7 @@ app.get('/tasks', (req, res) => {
     }
     // end check
 
-    const id = decoded.userId;
+    const id = decoded.userID;
 
     db.all("SELECT * FROM tasks WHERE userID = ?", [id], (err, rows) => {
         if (err) {
@@ -149,25 +159,26 @@ app.get('/tasks', (req, res) => {
         }
     });
 })
+
 app.post('/tasks', (req, res) => {
     // cria uma nova task
     const authorization = req.headers.authorization;
     let decoded = "";
 
     if (!authorization) {
-        return res.status(401).send("Unauthorized");
+        err = JSON.stringify({ err: "Unauthorized" })
+        return res.status(401).send(err);
     }
     try {
         token = authorization.split(" ")[1];
         decoded = jwt.verify(token, process.env.JWT_SECRET || "secret");
-        // console.log(decoded);
     } catch (err) {
-        console.error(err);
-        return res.status(401).send("Unauthorized");
+        err = JSON.stringify({ err: "Unauthorized" })
+        return res.status(401).send(err);
     }
     // end check
 
-    const { taskname, done } = req.body
+    const { taskname, description, done } = req.body
 
     if (!taskname) {
         err = JSON.stringify({ err: 'Task name is required' })
@@ -178,10 +189,9 @@ app.post('/tasks', (req, res) => {
         return res.status(400).send(err)
     }
 
-    const userID = decoded.userId;
+    const userID = decoded.userID;
     const username = decoded.username;
-
-    db.run(`INSERT INTO tasks (taskname, userID, username, done) VALUES (?,?,?,?)`, [taskname, userID, username, done], function (err) {
+    db.run(`INSERT INTO tasks (taskname, userID, username, done, description) VALUES (?,?,?,?,?)`, [taskname, userID, username, done, description], function (err) {
         if (err) {
             err = JSON.stringify({ err: "Error creating task" })
             res.status(500).send(err)
@@ -190,16 +200,34 @@ app.post('/tasks', (req, res) => {
             res.status(201).send(message);
         }
     })
-    db.run("SELECT * FROM tasks ORDER BY taskId DESC limit 1", (err, row) => {
+    db.run("SELECT * FROM tasks ORDER BY taskID DESC limit 1", (err, row) => {
         res.send(row);
     })
 
 });
 
 app.put('/tasks', (req, res) => {
-    const { name, userID, username, done } = req.body
+    const authorization = req.headers.authorization;
+    let decoded = "";
 
-    if (!name) {
+    if (!authorization) {
+        err = JSON.stringify({ err: "Unauthorized" })
+        return res.status(401).send(err);
+    }
+    try {
+        token = authorization.split(" ")[1];
+        decoded = jwt.verify(token, process.env.JWT_SECRET || "secret");
+    } catch (err) {
+        err = JSON.stringify({ err: "Unauthorized" })
+        return res.status(401).send(err);
+    }
+    // end check
+
+    const userID = decoded.userID;
+    const username = decoded.username;
+    const {taskID, taskname, done} = req.body
+
+    if (!taskname) {
         err = JSON.stringify({ err: 'Name is required' })
         return res.status(400).send(err)
     }
@@ -216,8 +244,9 @@ app.put('/tasks', (req, res) => {
         return res.status(400).send(err)
     }
 
-    db.run("UPDATE tasks set (name = ?, UserId = ?, Username = ?, done = ? )", [name, userID, username, done], (err) => {
+    db.run("UPDATE tasks SET taskname=?, userID=?, username=?, done=? WHERE taskID = ?", [taskname, userID, username, done, taskID], (err) => {
         if (err) {
+            console.error(err);
             err = JSON.stringify({ err: "Tasks updating user" })
             res.status(500).send(err);
         } else {
@@ -227,9 +256,54 @@ app.put('/tasks', (req, res) => {
         }
     })
 })
+app.delete("/tasks/:id", (req, res) => {
+    // check jwt token authorization header
+    const authorization = req.headers.authorization;
+    let decoded = "";
 
+    if (!authorization) {
+        return res.status(401).send("Unauthorized");
+    }
+    try {
+        token = authorization.split(" ")[1];
+        decoded = jwt.verify(token, process.env.JWT_SECRET || "secret");
+    } catch (err) {
+        console.error(err);
+        return res.status(401).send("Unauthorized");
+    }
+    // end check
+
+    taskID = req.params.id;
+    userID = decoded.userID;
+    
+    // console.log(taskID, userID);
+    db.get("SELECT * FROM tasks WHERE taskID = ? AND userID= ?", [
+        taskID,
+        userID,
+    ], (err, row) => {
+        if (err) {
+            // console.log(err)
+            err = JSON.stringify({ err: "Error deleting task" })
+            res.status(500).send(err);
+        } else if (row) {
+            db.run("DELETE FROM tasks where taskID = ?", [taskID], (err, rows) => {
+                if (err) {
+                    // console.log(err)
+                    err = JSON.stringify({ err: "Error deleting task" })
+                    res.status(500).send(err);
+                } else {
+                    message = JSON.stringify({ message: "Task deleted successfully" })
+                    res.status(200).send(message);
+                }
+            });
+        } else {
+            err = JSON.stringify({ err: "Task not found" })
+            res.status(404).send(err);
+        }
+    });
+});
 
 // diponibilita o acesso da aplicação na porta desejada
 app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`)
+    console.log(`Example app listening on port :${port}`)
 })

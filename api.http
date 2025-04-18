@@ -1,0 +1,20 @@
+POST http://localhost:3000/login
+Content-Type: application/json
+Accept: application/json
+
+{"name":"pedro","password":"aaa"}
+
+###
+
+POST http://172.50.0.2:3000/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name":"pedro",
+    "password":"aaa"
+}
+
+###
+
+GET http://localhost:5173/
