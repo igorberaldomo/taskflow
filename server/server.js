@@ -18,14 +18,13 @@ app.use(cors({
     origin: (origin, callback) => {
         if (!origin || origin.startsWith('http://172.18.0.')
             || origin.startsWith('http://127.0.0.1')
-            || origin.startsWith('http://localhost')    
+            || origin.startsWith('http://localhost:5173')    
             || origin.startsWith('http://taskflow')
     ) {
             return callback(null, true);
         }
         return callback(new Error('Not allowed by CORS'));
     },
-    // origin: ['http://localhost:5173', 'http://taskflow:5173'],
 }))
 
 

@@ -22,7 +22,7 @@ export default function Register() {
       name: username,
       password: password
     }
-    const response = await fetch('http://taskserver:3000/register', {
+    const response = await fetch('http://localhost:3000/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

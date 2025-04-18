@@ -23,7 +23,7 @@ export default function Display() {
 
   const deleteTask = async (taskID) => {
 
-    const response = await fetch(`http://taskserver:3000/tasks/${taskID}`, {
+    const response = await fetch(`http://localhost:3000/tasks/${taskID}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function Display() {
       description:description,
       done: done,
     }
-    const response = await fetch('http://taskserver:3000/tasks', {
+    const response = await fetch('http://localhost:3000/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export default function Display() {
       taskname: taskName,
       done: done,
     }
-    const response = await fetch(`http://taskserver:3000/tasks`, {
+    const response = await fetch(`http://localhost:3000/tasks`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ export default function Display() {
   }
   useEffect(() => {
     const fetchAllTasks = async () => {
-      const tasks = await fetch('http://taskserver:3000/tasks',
+      const tasks = await fetch('http://localhost:3000/tasks',
         {
           method: 'GET',
           headers: {
