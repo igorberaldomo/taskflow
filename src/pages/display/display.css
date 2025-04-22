@@ -183,6 +183,14 @@
     color: red;
 
 }
+.update-button {
+    padding: 0px;
+    height: 25px;
+    width: 60px;
+    background-color: lightgray;
+    border-radius: 5px;
+    border: none;
+}
 .limited-width{
 
     display: flex;
