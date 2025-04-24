@@ -9,6 +9,7 @@ export default function Display() {
   const [taskName, setTaskName] = useState("")
   const [done, setDone] = useState("created")
   const [error, setError] = useState("")
+  const [errorCode, setErrorcode] = useState("")
   const [description, setDescription] = useState("")
 
   const navigate = useNavigate();
@@ -31,12 +32,15 @@ export default function Display() {
       }
     })
     const data = await response.json()
+    const statusCode = response.status;
+
     if (data.err === 'Unauthorized') {
       localStorage.removeItem('token')
       navigate('/')
     }
     if (data.err == 'Error deleting task') {
       setError(data.err)
+      setErrorcode(statusCode)
     }
     if (data.message) {
       navigate('/display')
@@ -160,6 +164,11 @@ export default function Display() {
             </td>
             <td>
               <input type="text" placeholder="description" className="createTask-description" onChange={handleDescriptionChange}  />
+            </td>
+          </tr>
+          <tr>
+            <td>
+            {error && <p >{errorCode} - {error}</p>}
             </td>
           </tr>
           </tbody>
