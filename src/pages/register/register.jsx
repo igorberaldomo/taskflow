@@ -7,7 +7,6 @@ export default function Register() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
-  const [errorCode, setErrorcode] = useState("")
 
   const navigate = useNavigate();
   
@@ -31,14 +30,12 @@ export default function Register() {
       body: JSON.stringify(user),
     });
     const data = await response.json();
-    const statusCode = response.status;
 
 
     if (data.name && data.password) {
       navigate('/display')
     }
     else {
-      setErrorcode(statusCode)
       setError(data.err)
     }
   }
@@ -79,7 +76,7 @@ export default function Register() {
 
         </div>
         <div className="error">
-          {error && <p >{errorCode} - {error}</p>}
+          {error && <p > {error}</p>}
         </div>
       </div>
     </div>

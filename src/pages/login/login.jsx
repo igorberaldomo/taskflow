@@ -11,7 +11,6 @@ export default function Login() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
-  const [errorCode, setErrorcode] = useState("")
 
 
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ export default function Login() {
       body: JSON.stringify(user),
     });
     const data = await response.json();
-    const statusCode = response.status;
+
 
     if (data.message) {
 
@@ -46,7 +45,7 @@ export default function Login() {
       //{ replace: true , state:{token: data.token}}
     }
     else {
-      setErrorcode(statusCode)
+
       setError(data.err)
     }
   }
@@ -84,7 +83,7 @@ export default function Login() {
 
         </div>
         <div className="error">
-          {error && <p >{errorCode} - {error}</p>}
+          {error && <p >{error}</p>}
         </div>
       </div>
     </div>
